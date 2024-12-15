@@ -1,5 +1,12 @@
 ﻿namespace HumidityAndPM.Models
 {
+    public class CountryHourlyViewModel
+    {
+
+        public new List<CountryHourlyValueModel> records { get; set; }
+        public object fields { get; set; }
+    }
+
     public class CountryHourlyValueModel
     {
         /// <summary>
@@ -34,10 +41,10 @@
         /// <summary>
         /// 監測日期
         /// </summary>
-        public string? monitordate { get; set; }
+        public DateTime? monitordate { get; set; }
         /// <summary>
         /// 數值
         /// </summary>
-        public string? concentration { get; set; }
+        public float? concentration { get; set; }
     }
 }
