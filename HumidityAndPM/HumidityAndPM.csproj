@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\chart.js\**" />
+    <Content Remove="wwwroot\lib\chart.js\**" />
+    <EmbeddedResource Remove="wwwroot\lib\chart.js\**" />
+    <None Remove="wwwroot\lib\chart.js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 

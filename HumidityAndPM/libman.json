@@ -5,6 +5,14 @@
     {
       "library": "bootstrap@5.3.3",
       "destination": "wwwroot/bootstrap/"
+    },
+    {
+      "library": "Chart.js@4.4.1",
+      "destination": "wwwroot/Chart.js/",
+      "files": [
+        "chart.js.map",
+        "chart.js"
+      ]
     }
   ]
 }

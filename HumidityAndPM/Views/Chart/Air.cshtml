@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "~/Views/Shared/_WeatherLayout.cshtml";
+}
+@section Styles {
+    <style>
+        .header {
+            background-color: #ADD8E6; /* 淡藍色 */
+            padding: 10px;
+        }
+    </style>
+}
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'Sample Data',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}
+<div class="text-center"><h3>空氣</h3></div>
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-center text-center">
+            <div class="w-75 border">
+                <h3><b>PM2.5</b></h3>
+            </div>
+            <button class="btn btn-primary">新增</button>
+        </div>
+    </div>
+    <div class="col-12">
+        <canvas id="myChart" width="400" height="200"></canvas>
+    </div>
+    <div class="col-12">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">時間</th>
+                    <th scope="col">數值</th>
+                    <th scope="col">功能</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2023-01-01 12:00</td>
+                    <td>50</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm">編輯</button>
+                        <button class="btn btn-danger btn-sm">刪除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2023-01-02 12:00</td>
+                    <td>55</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm">編輯</button>
+                        <button class="btn btn-danger btn-sm">刪除</button>
+                    </td>
+                </tr>
+                @* 其他資料列 *@
+            </tbody>
+        </table>
+    </div>
+</div>

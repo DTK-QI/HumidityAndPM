@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HumidityAndPM.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <header>
@@ -23,7 +24,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="schedule" asp-action="Index">schedule</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="HangFire" asp-action="Index">schedule</a>
                         </li>
                     </ul>
                 </div>

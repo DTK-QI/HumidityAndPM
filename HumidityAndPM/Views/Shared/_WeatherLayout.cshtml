@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>懸浮微粒與溫濕對比分析-以台北市為例</title>
+    <link rel="stylesheet" href="~/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HumidityAndPM.styles.css" asp-append-version="true" />
+    <style>
+        .header {
+            background-color: #ADD8E6; /* 淡藍色 */
+            padding: 10px;
+        }
+    </style>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header>
+        <div class="header d-flex justify-content-between align-items-center w-100">
+            <div class="header-title h4">懸浮微粒與溫濕對比分析-以台北市為例</div>
+            <div class="header-buttons">
+                <a href="@Url.Action("Index", "Chart")" class="btn btn-primary">首頁</a>
+                <a href="@Url.Action("Air", "Chart")" class="btn btn-primary">空氣</a>
+                <a href="@Url.Action("Weather", "Chart")" class="btn btn-primary">天氣</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - HumidityAndPM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/chart.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -7,16 +7,17 @@ namespace HumidityAndPM.Function
 {
     public class CallHumidityAndPMData
     {
+        private static readonly HttpClient client = new HttpClient();
         public async Task<List<CountryHourlyValueModel>?> GetCallHumidityAndPM(int limit)
         {
             try
             {
                 string apiUrl = "https://data.moenv.gov.tw/api/v2/aqx_p_133?offset=0&limit=10&api_key=";
-                HttpResponseMessage response = await HttpClient.GetAsync(apiUrl);
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
 
-                CountryHourlyValueModel? result = JsonSerializer.Deserialize<CountryHourlyValueModel>(responseBody, new JsonSerializerOptions
+                List<CountryHourlyValueModel>? result = JsonSerializer.Deserialize<List<CountryHourlyValueModel>>(responseBody, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
