@@ -12,27 +12,55 @@
 }
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-
+    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-adapter-date-fns/3.0.0/chartjs-adapter-date-fns.min.js"></script> *@
+    <script type="module">
+        import 'https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns';
         var ctx = document.getElementById('myChart').getContext('2d');
         var ctx1 = document.getElementById('myChart1').getContext('2d');
         var ctx2 = document.getElementById('myChart2').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [{
-                    label: 'Sample Data',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    label: '數值隨時間變化',
+                    data: [], // 初始化為空，稍後填充
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
+                    x: {
+                        type: 'time', // X 軸使用時間格式
+                        time: {
+                            unit: 'hour', // 顯示格式單位（例如：秒、分鐘、天）
+                            displayFormats: {
+                                minute: 'HH:mm:ss' // 格式化顯示為時分秒
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '時間'
+                        }
+                    },
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '數值'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true,
+                        mode: 'index'
                     }
                 }
             }
@@ -40,19 +68,46 @@
         var myChart1 = new Chart(ctx1, {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [{
-                    label: 'Sample Data',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    label: '數值隨時間變化',
+                    data: [], // 初始化為空，稍後填充
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
+                    x: {
+                        type: 'time', // X 軸使用時間格式
+                        time: {
+                            unit: 'hour', // 顯示格式單位（例如：秒、分鐘、天）
+                            displayFormats: {
+                                minute: 'HH:mm:ss' // 格式化顯示為時分秒
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '時間'
+                        }
+                    },
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '數值'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true,
+                        mode: 'index'
                     }
                 }
             }
@@ -60,23 +115,121 @@
         var myChart2 = new Chart(ctx2, {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [{
-                    label: 'Sample Data',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    label: '數值隨時間變化',
+                    data: [], // 初始化為空，稍後填充
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
+                    x: {
+                        type: 'time', // X 軸使用時間格式
+                        time: {
+                            unit: 'hour', // 顯示格式單位（例如：秒、分鐘、天）
+                            displayFormats: {
+                                minute: 'HH:mm:ss' // 格式化顯示為時分秒
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '時間'
+                        }
+                    },
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '數值'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true,
+                        mode: 'index'
                     }
                 }
             }
         });
+
+        async function updateChart() {
+            try {
+                // 從 API 獲取資料
+                const response = await fetch('/weather/GetData?label=33'); // 替換為您的 API
+                const data = await response.json();
+                // 將 API 資料轉換為 Chart.js 格式
+                const formattedData = data.map(item => ({
+                    x: new Date(item.time), // 時間
+                    y: item.value                // 數值
+                }));
+
+                // 更新圖表資料
+                myChart.data.datasets[0].data = formattedData;
+
+                // 重新渲染圖表
+                myChart.update();
+            } catch (error) {
+                console.error('無法更新圖表資料', error);
+            }
+        }
+        async function updateChart1() {
+            try {
+                // 從 API 獲取資料
+                const response = await fetch('/weather/GetData?label=14'); // 替換為您的 API
+                const data = await response.json();
+                // 將 API 資料轉換為 Chart.js 格式
+                const formattedData = data.map(item => ({
+                    x: new Date(item.time), // 時間
+                    y: item.value                // 數值
+                }));
+
+                // 更新圖表資料
+                myChart1.data.datasets[0].data = formattedData;
+
+                // 重新渲染圖表
+                myChart1.update();
+            } catch (error) {
+                console.error('無法更新圖表資料', error);
+            }
+        }
+        async function updateChart2() {
+            try {
+                // 從 API 獲取資料
+                    const response = await fetch('/weather/GetData?label=38'); // 替換為您的 API
+                const data = await response.json();
+                // 將 API 資料轉換為 Chart.js 格式
+                const formattedData = data.map(item => ({
+                    x: new Date(item.time), // 時間
+                    y: item.value                // 數值
+                }));
+
+                // 更新圖表資料
+                myChart2.data.datasets[0].data = formattedData;
+
+                // 重新渲染圖表
+                myChart2.update();
+            } catch (error) {
+                console.error('無法更新圖表資料', error);
+            }
+        }
+
+        // 初次加載時更新圖表
+        updateChart();
+        updateChart1();
+        updateChart2();
+
+        // 定時每 1 分鐘更新一次圖表
+        setInterval(updateChart, 60000); // 每 60 秒執行一次
+        setInterval(updateChart1, 60000); // 每 60 秒執行一次
+        setInterval(updateChart2, 60000); // 每 60 秒執行一次
     </script>
 }
 <div class="row">

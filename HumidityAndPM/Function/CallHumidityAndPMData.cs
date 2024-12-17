@@ -55,18 +55,30 @@ namespace HumidityAndPM.Function
     
         public string SaveHumidityAndPMData()
         {
-            var result = GetCallHumidityAndPM(100).Result;
-            var SQLValue = SQLContext.WeatherValues.Where(x => x.RecordTime == result[0].monitordate).ToList();
+            var result = GetCallHumidityAndPM(200).Result;
+            if(result[0].monitordate == null)
+            {
+                return "No data";
+            }
+            var ResultTime = DateTime.Parse(result[0].monitordate);
+            var SQLValue = SQLContext.WeatherValues.Where(x => x.RecordTime == ResultTime).ToList();
             if (SQLValue.Count == 0)
             {
                 foreach (var item in result)
                 {
+                    if(item.concentration == "x")
+                    {
+                        continue;
+                    }
+                    var value = float.Parse(item.concentration);
+
                     WeatherValue weatherValue = new WeatherValue
                     {
                         CountryId = item.siteid,
+                        ValueId = item.itemid,
                         ValueName = item.itemname,
-                        Value = item.concentration,
-                        RecordTime = item.monitordate
+                        Value = value,
+                        RecordTime = ResultTime
                     };
                     SQLContext.WeatherValues.Add(weatherValue);
                     SQLContext.SaveChanges();

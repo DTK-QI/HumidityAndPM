@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HumidityAndPM.styles.css" asp-append-version="true" />
     @await RenderSectionAsync("Styles", required: false)
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/chart.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 <body>
     <header>
@@ -39,12 +43,10 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - HumidityAndPM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            2024 - HumidityAndPM 
         </div>
     </footer>
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

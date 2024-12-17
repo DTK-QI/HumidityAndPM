@@ -8,6 +8,7 @@ public partial class WeatherValue
     public int WeatherIndex { get; set; }
 
     public string? CountryId { get; set; }
+    public string? ValueId { get; set; }
 
     public string? ValueName { get; set; }
 

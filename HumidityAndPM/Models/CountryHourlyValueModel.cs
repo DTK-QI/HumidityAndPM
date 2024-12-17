@@ -41,10 +41,10 @@
         /// <summary>
         /// 監測日期
         /// </summary>
-        public DateTime? monitordate { get; set; }
+        public string? monitordate { get; set; }
         /// <summary>
         /// 數值
         /// </summary>
-        public float? concentration { get; set; }
+        public string? concentration { get; set; }
     }
 }
